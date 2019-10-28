@@ -1,4 +1,5 @@
-import firebase from 'firebase';
+import * as firebase from 'firebase';
+import 'firebase/firestore';
 
 firebase.initializeApp({
   apiKey: 'AIzaSyCm9Kzw47Xh-mYFXToezyCsBgdL3jOxJGY',
@@ -8,7 +9,6 @@ firebase.initializeApp({
   storageBucket: 'learn-react-d6266.appspot.com',
   messagingSenderId: '556401463612',
   appId: '1:556401463612:web:a383cef30a8eeec8f4ce39',
-  measurementId: 'G-2LK6LWZ1QL',
 });
 
 const firestore = firebase.firestore();

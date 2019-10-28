@@ -1,8 +1,16 @@
 import React from 'react';
 
-import {StyleSheet, View, StatusBar, Platform, FlatList} from 'react-native';
+import {
+  StyleSheet,
+  View,
+  StatusBar,
+  Platform,
+  FlatList,
+  Text,
+} from 'react-native';
 
 import Card from '../card';
+import actions from '../../actions';
 
 const cardsTest = [
   {
@@ -44,6 +52,19 @@ const cardsTest = [
 ];
 
 function Home() {
+  function fetchClasses() {
+    console.log('to aqui');
+    return actions.classes
+      .fetchClasses()
+      .then(res => {
+        setCards(res);
+      })
+      .catch(err => {
+        alert(err);
+      });
+  }
+  const [res, setRes] = React.useState('');
+
   const [cards, setCards] = React.useState(cardsTest);
 
   router = () => {
@@ -56,10 +77,13 @@ function Home() {
       ) : (
         <View style={styles.statusBar} />
       )}
+      <Text>{res}</Text>
       <FlatList
         style={styles.flatList}
         data={cards}
-        renderItem={({item}) => <Card card={item} />}
+        renderItem={({item}) => (
+          <Card fetchClasses={fetchClasses} card={item} />
+        )}
         keyExtractor={item => item.id}
       />
     </View>

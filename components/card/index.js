@@ -2,7 +2,9 @@ import * as React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
-function Card({card}) {
+import actions from '../../actions';
+
+function Card({card, fetchClasses}) {
   return (
     <View style={styles.cardView}>
       <View style={styles.titleView}>
@@ -12,7 +14,7 @@ function Card({card}) {
       <View style={styles.imgView}>
         <Image style={styles.img} source={{uri: card.img}} />
       </View>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity onPress={fetchClasses} style={styles.button}>
         <Text style={styles.textButton}>Ver Mais</Text>
       </TouchableOpacity>
     </View>
