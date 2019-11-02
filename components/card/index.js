@@ -1,10 +1,13 @@
 import * as React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {useNavigation} from 'react-navigation-hooks';
 
 import actions from '../../actions';
 
 function Card({card, fetchClasses}) {
+  const {navigate} = useNavigation();
+
   return (
     <View style={styles.cardView}>
       <View style={styles.titleView}>
@@ -14,7 +17,11 @@ function Card({card, fetchClasses}) {
       <View style={styles.imgView}>
         <Image style={styles.img} source={{uri: card.img}} />
       </View>
-      <TouchableOpacity onPress={fetchClasses} style={styles.button}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          navigate('Class');
+        }}>
         <Text style={styles.textButton}>Ver Mais</Text>
       </TouchableOpacity>
     </View>
