@@ -3,7 +3,7 @@ import React from 'react';
 import {StyleSheet, ScrollView, View, Text, StatusBar} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
-class Class1 extends React.Component {
+class Class extends React.Component {
   router = () => {
     this.props.navigation.navigate('Home');
   };
@@ -31,4 +31,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Class1;
+export default Class;
