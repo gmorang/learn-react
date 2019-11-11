@@ -15,12 +15,12 @@ function Card({card, fetchClasses}) {
         <View style={styles.divider} />
       </View>
       <View style={styles.imgView}>
-        <Image style={styles.img} source={{uri: card.img}} />
+        <Image style={styles.img} source={{uri: card.image}} />
       </View>
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
-          navigate('Class');
+          navigate('Class', {card});
         }}>
         <Text style={styles.textButton}>Ver Mais</Text>
       </TouchableOpacity>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 import {
   StyleSheet,
@@ -6,17 +6,17 @@ import {
   StatusBar,
   Platform,
   FlatList,
-  Text,
-} from 'react-native';
+  Text
+} from "react-native";
 
-import Card from '../card';
-import actions from '../../actions';
-import store from '../../store';
-import Spinner from '../spinner';
+import Card from "../card";
+import actions from "../../actions";
+import store from "../../store";
+import Spinner from "../spinner";
 
 function Home() {
   function fetchClasses() {
-    return actions.classes.fetchClasses().then(res => setLessons(res));
+    return actions.classes.fetchLessons();
   }
 
   React.useEffect(() => {
@@ -24,7 +24,7 @@ function Home() {
   }, []);
 
   router = () => {
-    this.props.navigation.navigate('Class1');
+    this.props.navigation.navigate("Class1");
   };
 
   const [lessons, setLessons] = React.useState(null);
@@ -33,7 +33,7 @@ function Home() {
     <Spinner />
   ) : (
     <View style={styles.container}>
-      {Platform.OS === 'android' ? (
+      {Platform.OS === "android" ? (
         <StatusBar backgroundColor="#7159c1" />
       ) : (
         <View style={styles.statusBar} />
@@ -41,7 +41,7 @@ function Home() {
       <FlatList
         style={styles.flatList}
         data={lessons}
-        renderItem={({item}) => (
+        renderItem={({ item }) => (
           <Card fetchClasses={fetchClasses} card={item} />
         )}
         keyExtractor={item => item.id}
@@ -53,21 +53,21 @@ function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff"
   },
   buttonRoutes: {
-    backgroundColor: '#333',
-    color: '#fff',
+    backgroundColor: "#333",
+    color: "#fff"
   },
   statusBar: {
     height: 35,
-    backgroundColor: '#7159c1',
-    width: '100%',
-    marginBottom: 10,
+    backgroundColor: "#7159c1",
+    width: "100%",
+    marginBottom: 10
   },
   flatList: {
-    flex: 1,
-  },
+    flex: 1
+  }
 });
 
 export default Home;

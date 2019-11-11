@@ -3,20 +3,25 @@ import React from 'react';
 import {StyleSheet, ScrollView, View, Text, StatusBar} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
-class Class extends React.Component {
-  router = () => {
-    this.props.navigation.navigate('Home');
-  };
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text>Routes Test class 1</Text>
-        <TouchableOpacity onPress={this.router} style={styles.buttonRoutes}>
-          <Text>Voltar</Text>
-        </TouchableOpacity>
-      </View>
-    );
-  }
+import {useNavigation} from 'react-navigation-hooks';
+
+function Lesson(props) {
+  const {navigate} = useNavigation();
+
+  const lesson = props.navigation.state.params.card;
+
+  return (
+    <View style={styles.container}>
+      <Text>Routes Test class 1</Text>
+      <TouchableOpacity
+        onPress={() => {
+          navigate('Home');
+        }}
+        style={styles.buttonRoutes}>
+        <Text>Voltar</Text>
+      </TouchableOpacity>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -31,4 +36,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Class;
+export default Lesson;
