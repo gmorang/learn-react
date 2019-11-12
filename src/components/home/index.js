@@ -23,11 +23,7 @@ function Home() {
     fetchClasses();
   }, []);
 
-  router = () => {
-    this.props.navigation.navigate("Class1");
-  };
-
-  const [lessons, setLessons] = React.useState(null);
+  const { lessons } = store.get();
 
   return !lessons ? (
     <Spinner />
@@ -41,9 +37,7 @@ function Home() {
       <FlatList
         style={styles.flatList}
         data={lessons}
-        renderItem={({ item }) => (
-          <Card fetchClasses={fetchClasses} card={item} />
-        )}
+        renderItem={({ item }) => <Card card={item} />}
         keyExtractor={item => item.id}
       />
     </View>
