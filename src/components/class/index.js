@@ -6,9 +6,9 @@ import {
   View,
   Text,
   StatusBar,
-  Image
+  Image,
+  TouchableOpacity
 } from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
 
 import { useNavigation } from "react-navigation-hooks";
 
