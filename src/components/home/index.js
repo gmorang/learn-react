@@ -19,27 +19,33 @@ function Home() {
     return actions.classes.fetchLessons();
   }
 
-  React.useEffect(() => {
-    fetchClasses();
+  const [isLoading, setLoading] = React.useState(false);
+
+  React.useEffect(async () => {
+    setLoading(true);
+    await fetchClasses();
+    setLoading(false);
   }, []);
 
   const { lessons } = store.get();
 
-  return !lessons ? (
-    <Spinner />
-  ) : (
+  return (
     <View style={styles.container}>
       {Platform.OS === "android" ? (
         <StatusBar backgroundColor="#7159c1" />
       ) : (
         <View style={styles.statusBar} />
       )}
-      <FlatList
-        style={styles.flatList}
-        data={lessons}
-        renderItem={({ item }) => <Card card={item} />}
-        keyExtractor={item => item.id}
-      />
+      {!lessons ? (
+        <Spinner />
+      ) : (
+        <FlatList
+          style={styles.flatList}
+          data={lessons}
+          renderItem={({ item }) => <Card card={item} />}
+          keyExtractor={item => item.id}
+        />
+      )}
     </View>
   );
 }
