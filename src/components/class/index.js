@@ -9,11 +9,16 @@ import {
   Image,
   TouchableOpacity
 } from "react-native";
+import Markdown from "react-native-simple-markdown";
 
 import { useNavigation } from "react-navigation-hooks";
 
 function Lesson(props) {
   const { navigate } = useNavigation();
+
+  console.log(props);
+
+  const { card } = props.navigation.state.params;
 
   return (
     <View style={styles.container}>
@@ -26,78 +31,53 @@ function Lesson(props) {
         <Image
           style={styles.img}
           source={{
-            uri: "https://miro.medium.com/max/1000/1*GkR93AAlILkmE_3QQf88Ug.png"
+            uri: card.image
           }}
         />
         <View style={styles.textContainer}>
           <View style={styles.titleContainer}>
-            <Text style={styles.title}>Titulo</Text>
+            <Text style={styles.title}>{card.title}</Text>
           </View>
           <View style={styles.recomended}>
             <Text>Aulas Recomendadas: </Text>
-            <TouchableOpacity
-              onPress={() => {
-                alert("clicou");
-              }}
-            >
-              <Text style={styles.textLink}>Get Starded</Text>
-            </TouchableOpacity>
+            {card.recomended &&
+              card.recomended.map((item, index) => {
+                return (
+                  <TouchableOpacity
+                    key={index}
+                    onPress={() => {
+                      alert("clicou");
+                    }}
+                    style={{ marginRight: 5 }}
+                  >
+                    <Text style={styles.textLink}>{item}</Text>
+                  </TouchableOpacity>
+                );
+              })}
           </View>
           <View style={styles.text}>
-            <Text>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industry's standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum. Lorem Ipsum is simply dummy text of the printing and
-              typesetting industry. Lorem Ipsum has been the industry's standard
-              dummy text ever since the 1500s, when an unknown printer took a
-              galley of type and scrambled it to make a type specimen book. It
-              has survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem IpsumLorem Ipsum is simply dummy text of the printing and
-              typesetting industry. Lorem Ipsum has been the industry's standard
-              dummy text ever since the 1500s, when an unknown printer took a
-              galley of type and scrambled it to make a type specimen book. It
-              has survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem IpsumLorem Ipsum is simply dummy text of the printing and
-              typesetting industry. Lorem Ipsum has been the industry's standard
-              dummy text ever since the 1500s, when an unknown printer took a
-              galley of type and scrambled it to make a type specimen book. It
-              has survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem IpsumLorem Ipsum is simply dummy text of the printing and
-              typesetting industry. Lorem Ipsum has been the industry's standard
-              dummy text ever since the 1500s, when an unknown printer took a
-              galley of type and scrambled it to make a type specimen book. It
-              has survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum
-            </Text>
+            <Markdown styles={markdownStyles}>{card.text}</Markdown>
           </View>
         </View>
       </ScrollView>
     </View>
   );
 }
+const markdownStyles = {
+  heading1: {
+    fontSize: 24,
+    color: "purple"
+  },
+  link: {
+    color: "pink"
+  },
+  mailTo: {
+    color: "orange"
+  },
+  text: {
+    color: "#555555"
+  }
+};
 
 const styles = StyleSheet.create({
   container: {
