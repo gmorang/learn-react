@@ -17,7 +17,7 @@ function Card({ card }) {
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
-          navigate("Class", { card });
+          navigate("Class", { title: card.title });
         }}
       >
         <Text style={styles.textButton}>Ver Mais</Text>

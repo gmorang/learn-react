@@ -14,3 +14,13 @@ export const fetchLessons = async () => {
     })
     .catch(errHandler);
 };
+
+export const fetchLesson = async title => {
+  console.log("title na function", title);
+  return await axios
+    .get("https://api-learn-react.herokuapp.com/v1/lessons/by-title", {
+      params: { title: title }
+    })
+    .then(res => res.data)
+    .catch(errHandler);
+};

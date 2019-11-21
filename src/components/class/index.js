@@ -12,15 +12,29 @@ import {
 import Markdown from "react-native-simple-markdown";
 
 import { useNavigation } from "react-navigation-hooks";
+import actions from "../../actions";
+import Spinner from "../spinner";
 
 function Lesson(props) {
-  const { navigate } = useNavigation();
+  const { title } = props.navigation.state.params;
 
-  console.log(props);
+  const [isLoading, setLoading] = React.useState(false);
+  const [card, setCard] = React.useState(null);
 
-  const { card } = props.navigation.state.params;
+  function fetchLesson(title) {
+    console.log("rodei");
+    return actions.classes.fetchLesson(title).then(res => setCard(res));
+  }
 
-  return (
+  React.useEffect(async () => {
+    setLoading(true);
+    await fetchLesson(title);
+    setLoading(false);
+  }, []);
+
+  return !card ? (
+    <Spinner />
+  ) : (
     <View style={styles.container}>
       {Platform.OS === "android" ? (
         <StatusBar backgroundColor="#7159c1" />
@@ -46,7 +60,7 @@ function Lesson(props) {
                   <TouchableOpacity
                     key={index}
                     onPress={() => {
-                      alert("clicou");
+                      fetchLesson("test");
                     }}
                     style={{ marginRight: 5 }}
                   >
