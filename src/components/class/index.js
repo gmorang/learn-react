@@ -21,15 +21,18 @@ function Lesson(props) {
   const [isLoading, setLoading] = React.useState(false);
   const [card, setCard] = React.useState(null);
 
-  function fetchLesson(title) {
-    console.log("rodei");
-    return actions.classes.fetchLesson(title).then(res => setCard(res));
+  async function fetchLesson(title) {
+    setLoading(true);
+    const lesson = await actions.classes
+      .fetchLesson(title)
+      .then(res => setCard(res));
+    setLoading(false);
+
+    return lesson;
   }
 
-  React.useEffect(async () => {
-    setLoading(true);
-    await fetchLesson(title);
-    setLoading(false);
+  React.useEffect(() => {
+    fetchLesson(title);
   }, []);
 
   return !card ? (
@@ -70,7 +73,25 @@ function Lesson(props) {
               })}
           </View>
           <View style={styles.text}>
-            <Markdown styles={markdownStyles}>{card.text}</Markdown>
+            <Markdown styles={markdownStyles}>
+              **React** é uma biblioteca JavaScript para construção de
+              interfaces de usuário, React foi pensado desde o início para ser
+              adotado gradualmente e **você pode usar menos ou mais da
+              biblioteca de acordo com sua necessidade.** #Um Componente Simples
+              Os componentes do React implementam um método `render()` que
+              recebe os dados de entrada e retornam o que deve ser exibido. Este
+              exemplo usa uma sintaxe parecida com XML chamada JSX. Os dados de
+              entrada que são passados para o componente podem ser acessados no
+              `render()` via `this.props`. **O JSX é opcional e não é necessário
+              para usar o React.** Teste o [Babel
+              REPL](https://babeljs.io/repl/#?presets=react&code_lz=MYewdgzgLgBApgGzgWzmWBeGAeAFgRgD4AJRBEAGhgHcQAnBAEwEJsB6AwgbgChRJY_KAEMAlmDh0YWRiGABXVOgB0AczhQAokiVQAQgE8AkowAUAcjogQUcwEpeAJTjDgUACIB5ALLK6aRklTRBQ0KCohMQk6Bx4gA)
+              para ver o código JavaScript bruto produzido pela etapa de
+              compilação do JSX. ![enter image description
+              here](https://hackernoon.com/hn-images/1*YESBXsE4q3_jZG8mYxueXg.png)
+              #Videos de auxilio [Iniciando com ReactJs -
+              Rocketseat](https://www.youtube.com/watch?v=7A4UQGrFU9Q&t=75s)
+              [https://www.youtube.com/playlist?list=PLBNBxpMAbyhUwX2Nh3kbBaBb_2ImtVjTS](https://www.youtube.com/playlist?list=PLBNBxpMAbyhUwX2Nh3kbBaBb_2ImtVjTS)
+            </Markdown>
           </View>
         </View>
       </ScrollView>

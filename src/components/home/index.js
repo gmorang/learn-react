@@ -15,16 +15,18 @@ import store from "../../store";
 import Spinner from "../spinner";
 
 function Home() {
-  function fetchClasses() {
-    return actions.classes.fetchLessons();
+  async function fetchClasses() {
+    setLoading(true);
+    const classes = await actions.classes.fetchLessons();
+    setLoading(false);
+
+    return classes;
   }
 
   const [isLoading, setLoading] = React.useState(false);
 
-  React.useEffect(async () => {
-    setLoading(true);
-    await fetchClasses();
-    setLoading(false);
+  React.useEffect(() => {
+    fetchClasses();
   }, []);
 
   const { lessons } = store.get();
